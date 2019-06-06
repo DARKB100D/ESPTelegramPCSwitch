@@ -15,7 +15,11 @@ int Bot_mtbs = 1000;
 long Bot_lasttime = 0;
 String whiteList[1] = {"350367633"};
 
-const int BlueLed = 2; // LED_BUILTIN
+const int power_sw_pin = 2;
+const int power_led_pin = 2;
+const int hdd_led_pin = 2;
+
+bool is_sleep = false;
 
 void setup() {
   Serial.begin(9600);
@@ -34,7 +38,8 @@ void setup() {
   Serial.println("WiFi connected");
   Serial.println(WiFi.localIP());
 
-  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(power_sw_pin, OUTPUT);
+  digitalWrite(power_sw_pin, 1);
 
   net_ssl.setInsecure();
   bot = new UniversalTelegramBot(BotToken, net_ssl);
@@ -52,9 +57,14 @@ void loop() {
   }
 }
 
-void viewKeyBoard(String &chat_id) {
+void sendStatus(String &chat_id) {
   String keyboardJson = "[[ \"/on\", \"/off\"]]";
-  bot->sendMessageWithReplyKeyboard(chat_id, "Выберите действие", "", keyboardJson, true);
+  String state = "Сон";
+  if (!is_sleep) {
+    if (digitalRead(power_led_pin)) state = "Работает";
+    else state = "Выключен";
+  }
+  bot->sendMessageWithReplyKeyboard(chat_id, "Состояние: " + state, "", keyboardJson, true);
 }
 
 bool validateChat(String &chat_id) {
@@ -66,15 +76,46 @@ bool validateChat(String &chat_id) {
   return true;
 }
 
+void power_sw(int duration) {
+    digitalWrite(power_sw_pin, LOW);
+    delay(duration);
+    digitalWrite(power_sw_pin, HIGH);
+}
+
+void reset_sw() {
+    power_sw(8000);
+    delay(500);
+    power_sw(200);
+}
+
 void executeCommand(String &text, String &chat_id) {
-  if (text.equals("/on")) {
-    digitalWrite(LED_BUILTIN, LOW);
-    bot->sendMessage(chat_id, "The Led 1 is now ON");
+  if (text.equals("/power_on")) {
+    power_sw(200);
     return;
   }
-  if (text.equals("/off")) {
-    digitalWrite(LED_BUILTIN, HIGH);
-    bot->sendMessage(chat_id, "The Led 1 is now OFF");
+  if (text.equals("/power_off")) {
+    power_sw(8000);
+    return;
+  }
+  if (text.equals("/hard_reset")) {
+    reset_sw();
+    return;
+  }
+  if (text.equals("/good_night_led_on")) {
+    return;
+  }
+  if (text.equals("/good_night_led_off")) {
+    return;
+  }
+  if (text.equals("/status")) {
+    return;
+  }
+  if (text.equals("/start")) {
+    String start_msg = "/power_on - Включить (разбудить)\n"
+    "/power_off - Жесткое выключение\n"
+    "/hard_reset - Жесткая перезагрузка\n"
+    "/status - Теущее состояние ПК\n";
+    bot->sendMessage(chat_id, start_msg);
     return;
   }
   bot->sendMessage(chat_id, "404 Not Found.");
@@ -85,6 +126,6 @@ void handleNewMessages(int &numNewMessages) {
     String chat_id = String(bot->messages[i].chat_id);
     if (!validateChat(chat_id)) continue;
     executeCommand(bot->messages[i].text, chat_id);
-    viewKeyBoard(chat_id);
+    sendStatus(chat_id);
   }
 }
