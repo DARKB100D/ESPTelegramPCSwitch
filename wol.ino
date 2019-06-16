@@ -11,7 +11,7 @@ const char BotToken[] = SECRET_BOTTOKEN;
 WiFiClientSecure net_ssl;
 UniversalTelegramBot *bot;
 
-int Bot_mtbs = 1000;
+int Bot_mtbs = 1500;
 long Bot_lasttime = 0;
 
 #define whiteList_length 1
