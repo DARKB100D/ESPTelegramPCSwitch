@@ -61,8 +61,6 @@ void setup() {
 
   net_ssl.setInsecure();
   bot = new UniversalTelegramBot(BotToken, net_ssl);
-
-  sendESPStatus(whiteList[0]);
 }
 
 void loop() {
@@ -138,13 +136,6 @@ String getUptime() {
   return uptime;
 }
 
-void sendESPStatus(String &chat_id) {
-    String values = "SSID: " + WiFi.SSID() + "\n";
-    values += "IP: " + WiFi.localIP().toString() + "\n";
-    values += "Uptime: " + getUptime();
-    bot->sendMessage(chat_id, values); 
-} 
-
 void executeCommand(String &text, String &chat_id) {
   if (text.equals("/status") || text.equals("/start") 
   || text.equals("u267b u041eu0431u043du043eu0432u0438u0442u044c") // обновить
@@ -169,7 +160,10 @@ void executeCommand(String &text, String &chat_id) {
     return;
   }
   if (text.equals("/status_esp") || text.equals("u26ab ESP")) { // ESP
-    sendESPStatus(chat_id);
+    String values = "SSID: " + WiFi.SSID() + "\n";
+    values += "IP: " + WiFi.localIP().toString() + "\n";
+    values += "Uptime: " + getUptime();
+    bot->sendMessage(chat_id, values);
     return;
   }
   if (text.equals("u2728 u0415u0449u0451")) { // Ещё
