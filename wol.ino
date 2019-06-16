@@ -150,7 +150,7 @@ void executeCommand(String &text, String &chat_id) {
   Serial.println(text);
   if (text.equals("/status") || text.equals("/start") 
   || text.equals("u267b u041eu0431u043du043eu0432u0438u0442u044c") // обновить
-  || text.equals("ud83dudd19 u041du0430u0437u0430u0434")) { // Назад
+  || text.equals("ud83dudd19 u041du0430u0437u0430u0434")) { // назад
     sendStatus(chat_id);
     return;
   }
@@ -160,17 +160,17 @@ void executeCommand(String &text, String &chat_id) {
     sendStatus(chat_id);
     return;
   }
-  if (text.equals("/power_off") || text.equals("ud83dudd34 u0412u044bu043au043bu044eu0447u0438u0442u044c")) {
+  if (text.equals("/power_off") || text.equals("ud83dudd34 u0412u044bu043au043bu044eu0447u0438u0442u044c")) { // выключить
     power_sw(8000);
     sendStatus(chat_id);
     return;
   }
-  if (text.equals("/hard_reset") || text.equals("ud83dudd04 u041fu0435u0440u0435u0437u0430u0433u0440u0443u0437u0438u0442u044c")) {
+  if (text.equals("/hard_reset") || text.equals("ud83dudd04 u041fu0435u0440u0435u0437u0430u0433u0440u0443u0437u0438u0442u044c")) { // перезагрузить
     reset_sw();
     sendStatus(chat_id);
     return;
   }
-  if (text.equals("/status_esp") || text.equals("u26ab ESP")) {
+  if (text.equals("/status_esp") || text.equals("u26ab ESP")) { // ESP
     sendESPStatus(chat_id);
     return;
   }
