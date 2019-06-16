@@ -146,7 +146,6 @@ void sendESPStatus(String &chat_id) {
 } 
 
 void executeCommand(String &text, String &chat_id) {
-  Serial.println(text);
   if (text.equals("/status") || text.equals("/start") 
   || text.equals("u267b u041eu0431u043du043eu0432u0438u0442u044c") // обновить
   || text.equals("ud83dudd19 u041du0430u0437u0430u0434")) { // назад
