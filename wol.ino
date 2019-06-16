@@ -29,18 +29,13 @@ const int good_night_control_pin = 14;
 // 13 MOSI (SPI)
 // 14 SCK (SPI)
 
-bool is_sleep = false;
-
 const String keyboardJson_work =
   "[[\"\xF0\x9F\x94\xB4 Выключить\", \"\xF0\x9F\x94\x84 Перезагрузить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
-const String keyboardJson_sleep =
-  "[[\"\xF0\x9F\x86\x99 Разбудить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
 const String keyboardJson_off =
   "[[\"\xF0\x9F\x86\x99 Включить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
 const String keyboardJson_menu =
   "[[\"\xF0\x9F\x94\x85 Индикаторы\"],[\"\xE2\x9A\xAB ESP\"],[\"\xF0\x9F\x94\x99 Назад\"]]";
 
-const String state_sleep = "\xF0\x9F\x92\xA4 (сон)";
 const String state_work = "\xE2\x9C\x85 (работает)";
 const String state_off = "\xE2\x9D\x8C (выключен)";
 
@@ -84,7 +79,6 @@ void loop() {
 }
 
 int getState() {
-  if (is_sleep) return 1; // sleeping
   if (digitalRead(power_led_in_pin)) return 3; // working
   return 0; // soft-off
 }
@@ -96,9 +90,6 @@ void sendStatus(String &chat_id) {
   switch (state) {
     case 0:
       bot->sendMessageWithReplyKeyboard(chat_id, state_msg + state_work + msg, "", keyboardJson_work, true);
-      break;
-    case 1:
-      bot->sendMessageWithReplyKeyboard(chat_id, state_msg + state_sleep + msg, "", keyboardJson_sleep, true);
       break;
     default:
       bot->sendMessageWithReplyKeyboard(chat_id, state_msg + state_off + msg, "", keyboardJson_off, true);
@@ -157,8 +148,7 @@ void executeCommand(String &text, String &chat_id) {
     return;
   }
   if (text.equals("/power_on") 
-  || text.equals("ud83cudd99 u0412u043au043bu044eu0447u0438u0442u044c") // включить
-  || text.equals("ud83cudd99 u0420u0430u0437u0431u0443u0434u0438u0442u044c")) { // разбудить
+  || text.equals("ud83cudd99 u0412u043au043bu044eu0447u0438u0442u044c")) { // включить
     power_sw(200);
     sendStatus(chat_id);
     return;
