@@ -13,13 +13,36 @@ UniversalTelegramBot *bot;
 
 int Bot_mtbs = 1000;
 long Bot_lasttime = 0;
-String whiteList[1] = {"350367633"};
 
-const int power_sw_pin = 2;
-const int power_led_pin = 2;
-const int hdd_led_pin = 2;
+#define whiteList_length 1
+String whiteList[whiteList_length] = {
+  "350367633"
+};
+
+const int power_sw_pin = 12;
+const int power_led_in_pin = 13;
+const int good_night_control_pin = 14;
+
+//  4 SDA (I²C)
+//  5 SCL (I²C)
+// 12 MISO (SPI)
+// 13 MOSI (SPI)
+// 14 SCK (SPI)
 
 bool is_sleep = false;
+
+const String keyboardJson_work =
+  "[[\"\xF0\x9F\x94\xB4 Выключить\", \"\xF0\x9F\x94\x84 Перезагрузить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
+const String keyboardJson_sleep =
+  "[[\"\xF0\x9F\x86\x99 Разбудить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
+const String keyboardJson_off =
+  "[[\"\xF0\x9F\x86\x99 Включить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
+const String keyboardJson_menu =
+  "[[\"\xF0\x9F\x94\x85 Индикаторы\"],[\"\xE2\x9A\xAB ESP\"],[\"\xF0\x9F\x94\x99 Назад\"]]";
+
+const String state_sleep = "\xF0\x9F\x92\xA4 (сон)";
+const String state_work = "\xE2\x9C\x85 (работает)";
+const String state_off = "\xE2\x9D\x8C (выключен)";
 
 void setup() {
   Serial.begin(9600);
