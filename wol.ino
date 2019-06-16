@@ -165,7 +165,9 @@ void executeCommand(String &text, String &chat_id) {
     return;
   }
   if (text.equals("/status_esp") || text.equals("u26ab ESP")) { // ESP
-    String values = "SSID: " + WiFi.SSID() + "\n";
+    String values = "Hostname: " + WiFi.hostname() + "\n";
+    values += "SSID: " + WiFi.SSID() + "\n";
+    values += "RSSI: " + String(WiFi.RSSI()) + "\n";
     values += "IP: " + WiFi.localIP().toString() + "\n";
     values += "Uptime: " + getUptime();
     bot->sendMessage(chat_id, values);
