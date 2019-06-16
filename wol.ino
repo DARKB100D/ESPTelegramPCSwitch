@@ -62,7 +62,10 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   pinMode(power_sw_pin, OUTPUT);
-  digitalWrite(power_sw_pin, 1);
+  digitalWrite(power_sw_pin, 0);
+
+  pinMode(power_led_in_pin, INPUT);
+  pinMode(good_night_control_pin, OUTPUT);
 
   net_ssl.setInsecure();
   bot = new UniversalTelegramBot(BotToken, net_ssl);
