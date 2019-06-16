@@ -21,7 +21,6 @@ String whiteList[whiteList_length] = {
 
 const int power_sw_pin = 12;
 const int power_led_in_pin = 13;
-const int good_night_control_pin = 14;
 
 //  4 SDA (I²C)
 //  5 SCL (I²C)
@@ -34,7 +33,7 @@ const String keyboardJson_work =
 const String keyboardJson_off =
   "[[\"\xF0\x9F\x86\x99 Включить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
 const String keyboardJson_menu =
-  "[[\"\xF0\x9F\x94\x85 Индикаторы\"],[\"\xE2\x9A\xAB ESP\"],[\"\xF0\x9F\x94\x99 Назад\"]]";
+  "[[\"\xE2\x9A\xAB ESP\"],[\"\xF0\x9F\x94\x99 Назад\"]]";
 
 const String state_work = "\xE2\x9C\x85 (работает)";
 const String state_off = "\xE2\x9D\x8C (выключен)";
@@ -60,7 +59,6 @@ void setup() {
   digitalWrite(power_sw_pin, 0);
 
   pinMode(power_led_in_pin, INPUT);
-  pinMode(good_night_control_pin, OUTPUT);
 
   net_ssl.setInsecure();
   bot = new UniversalTelegramBot(BotToken, net_ssl);
@@ -161,10 +159,6 @@ void executeCommand(String &text, String &chat_id) {
   if (text.equals("/hard_reset") || text.equals("ud83dudd04 u041fu0435u0440u0435u0437u0430u0433u0440u0443u0437u0438u0442u044c")) {
     reset_sw();
     sendStatus(chat_id);
-    return;
-  }
-  if (text.equals("/good_night") || text.equals("ud83dudd05 u0418u043du0434u0438u043au0430u0442u043eu0440u044b")) {
-    digitalWrite(good_night_control_pin, !digitalRead(good_night_control_pin));
     return;
   }
   if (text.equals("/status_esp") || text.equals("u26ab ESP")) {
