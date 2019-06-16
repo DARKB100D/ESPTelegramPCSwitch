@@ -40,10 +40,9 @@ const String state_off = "\xE2\x9D\x8C (выключен)";
 
 void setup() {
   Serial.begin(9600);
-
-  WiFi.mode(WIFI_STA); // Начинаем подключаться
+  
   WiFi.disconnect(); // По правильному - отключимся от предыдущих соединений.
-  delay(100);
+  WiFi.mode(WIFI_STA);
   Serial.print("Connecting Wifi: ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
