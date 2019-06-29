@@ -1,6 +1,10 @@
 # ESP Telegram PC Switch
 Устройство на базе микроконтроллера ESP 8266 позволяет через Telegram бота осуществлять контроль состояния компьютера, включать, выключать или перезагружать. Подключается напрямую к материнской плате (Front Panel) паралельно с передней панелью, имитирует нажатие кнопки Power SW, питается от USB порта.
 
+![alt text](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/photos/Telegram_bot_0.png "Бот")
+![alt text](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/photos/Telegram_bot_1.png "Бот")
+![alt text](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/photos/final.JPG "Финал")
+
 ### Компоненты
 [Схема подключения](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/schemes/Schematic_ESP-WoL.pdf)
 
@@ -17,9 +21,6 @@
 | Резистор 470 Ом | 2 |
 | Резистор 10 КОм | 1 |
 
-![alt text](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/photos/front.JPG "front")
-![alt text](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/photos/side.JPG "side")
-
 Для подключения к материнской плате:
 
 | Компонент | Количество |
@@ -30,7 +31,8 @@
 | PCB макетная плата 3х7 | 1 |
 | Корпус | 1 |
 
-![alt text](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/photos/final.JPG "final")
+![alt text](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/photos/front.JPG "front")
+![alt text](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/photos/side.JPG "side")
 
 ### Получение токена
 Необходимо зарегистрировать бота и получить уникальный id, являющийся одновременно и токеном. Для этого в Telegram существует специальный бот — [@BotFather](tg://resolve?domain=BotFather). 
