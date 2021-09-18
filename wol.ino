@@ -45,11 +45,6 @@ void setup() {
   WiFi.mode(WIFI_STA);
   Serial.print("Connecting Wifi: ");
   Serial.println(ssid);
-
-  WiFi.config(IPAddress(192, 168, 1, 40),
-              IPAddress(192, 168, 1, 1),
-              IPAddress(192, 168, 1, 1),
-              IPAddress(255, 255, 255, 0));
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
