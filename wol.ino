@@ -142,6 +142,8 @@ String getUptime() {
 }
 
 void executeCommand(String &text, String &chat_id) {
+  Serial.println(text);
+  
   if (text.equals("/status") || text.equals("/start") 
   || text.equals("♻ Обновить")
   || text.equals("🔙 Назад")) {
