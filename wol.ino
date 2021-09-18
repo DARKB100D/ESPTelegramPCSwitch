@@ -29,14 +29,14 @@ const int power_led_in_pin = 13;
 // 14 SCK (SPI)
 
 const String keyboardJson_work =
-  "[[\"\xF0\x9F\x94\xB4 Выключить\", \"\xF0\x9F\x94\x84 Перезагрузить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
+  "[[\"🔴 Выключить\", \"🔄 Перезагрузить\"],[\"♻ Обновить\"],[\"✨ Ещё\"]]";
 const String keyboardJson_off =
-  "[[\"\xF0\x9F\x86\x99 Включить\"],[\"\xE2\x99\xBB Обновить\"],[\"\xE2\x9C\xA8 Ещё\"]]";
+  "[[\"🆙 Включить\"],[\"♻ Обновить\"],[\"✨ Ещё\"]]";
 const String keyboardJson_menu =
-  "[[\"\xE2\x9A\xAB ESP\"],[\"\xF0\x9F\x94\x99 Назад\"]]";
+  "[[\"⚫ ESP\"],[\"🔙 Назад\"]]";
 
-const String state_work = "\xE2\x9C\x85 (работает)";
-const String state_off = "\xE2\x9D\x8C (выключен)";
+const String state_work = "✅ (работает)";
+const String state_off = "❌ (выключен)";
 
 void setup() {
   Serial.begin(9600);
@@ -143,28 +143,28 @@ String getUptime() {
 
 void executeCommand(String &text, String &chat_id) {
   if (text.equals("/status") || text.equals("/start") 
-  || text.equals("u267b u041eu0431u043du043eu0432u0438u0442u044c") // обновить
-  || text.equals("ud83dudd19 u041du0430u0437u0430u0434")) { // назад
+  || text.equals("♻ Обновить")
+  || text.equals("🔙 Назад")) {
     sendStatus(chat_id);
     return;
   }
   if (text.equals("/power_on") 
-  || text.equals("ud83cudd99 u0412u043au043bu044eu0447u0438u0442u044c")) { // включить
+  || text.equals("🆙 Включить")) {
     power_sw(200);
     sendStatus(chat_id);
     return;
   }
-  if (text.equals("/power_off") || text.equals("ud83dudd34 u0412u044bu043au043bu044eu0447u0438u0442u044c")) { // выключить
+  if (text.equals("/power_off") || text.equals("🔴 Выключить")) {
     power_sw(8000);
     sendStatus(chat_id);
     return;
   }
-  if (text.equals("/hard_reset") || text.equals("ud83dudd04 u041fu0435u0440u0435u0437u0430u0433u0440u0443u0437u0438u0442u044c")) { // перезагрузить
+  if (text.equals("/hard_reset") || text.equals("🔄 Перезагрузить")) {
     reset_sw();
     sendStatus(chat_id);
     return;
   }
-  if (text.equals("/status_esp") || text.equals("u26ab ESP")) { // ESP
+  if (text.equals("/status_esp") || text.equals("⚫ ESP")) {
     String values = "Hostname: " + WiFi.hostname() + "\n";
     values += "SSID: " + WiFi.SSID() + "\n";
     values += "RSSI: " + String(WiFi.RSSI()) + "\n";
@@ -173,7 +173,7 @@ void executeCommand(String &text, String &chat_id) {
     bot->sendMessage(chat_id, values);
     return;
   }
-  if (text.equals("u2728 u0415u0449u0451")) { // Ещё
+  if (text.equals("/more") || text.equals("✨ Ещё")) {
     bot->sendMessageWithReplyKeyboard(chat_id, "Дополнительно:", "", keyboardJson_menu, true);
     return;
   }
