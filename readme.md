@@ -62,7 +62,7 @@
     };
 
 ### Статический IP
-Для стабильной работы бота необходимо назначить ему IP-адрес в функции setup:
+Для более стабильной работы бота можно назначить ему IP-адрес в функции setup (после строки WiFi.mode(WIFI_STA)):
 
     WiFi.config(IPAddress(192, 168, 1, 40),
               IPAddress(192, 168, 1, 1),
@@ -72,8 +72,8 @@
 ### Сторонние библиотеки
 Для сборки проекта понадобятся стороннние библиотеки, которые находятся в папке [libs](https://github.com/DARKB100D/ESPTelegramPCSwitch/blob/master/libs/). Добавление библиотек в Arduino IDE описано в следующем пункте.
 Ссылки на git репозитории:
-- [witnessmenow/Universal-Arduino-Telegram-Bot V1.1.0](https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot/tree/V1.1.0)
-- [bblanchon/ArduinoJson V5.x](https://github.com/bblanchon/ArduinoJson/tree/5.x)
+- [witnessmenow/Universal-Arduino-Telegram-Bot V1.3.0](https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot/releases/tag/V1.3.0)
+- [bblanchon/ArduinoJson V6.18.4](https://github.com/bblanchon/ArduinoJson/releases/tag/v6.18.4)
 
 ### Прошивка ESP 8266
 1. Скачиваем и устанавливаем [Arduino IDE](https://www.arduino.cc/en/Main/Software);
@@ -82,7 +82,7 @@
 Войдите в меню: Скетч > Подключить библиотеку > Добавить .ZIP библиотеку...
 В появившемся окне выберите ZIP файл библиотеки, который Вы скачали. После чего нажмите на кнопку «Открыть»;
 4. Различных плат огромное количество, поэтому подготовку платы к перепрошивки описывать не стану, в интернете информации достаточно;
-5. Прошиваем микроконтроллер. 
+5. Прошиваем микроконтроллер (Скетч > Загрузка). 
 
 ### Лицензия
 - **[GPL-3.0 license](https://opensource.org/licenses/GPL-3.0)**
